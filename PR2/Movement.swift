@@ -61,4 +61,5 @@ class Movement: NSObject {
         let amount = Int(arc4random_uniform(UInt32(upper - lower + 1))) + lower
         return Decimal(amount)
     }
+
 }
