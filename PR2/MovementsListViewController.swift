@@ -40,50 +40,54 @@ class MovementsListViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "MovementCell") as! MovementCell
+        // It is a movement row (not last row)
+        if (indexPath.row < (movementsStore.count-1) ) {
         
-        // Description
-        let maxCharsPerLine = 30 // Maximum number of characters to prevent a line with incomplete text by length
-        var movementDescription = movementsStore[indexPath.row].movementDescription 
-        if (movementDescription.count > maxCharsPerLine) {
-            movementDescription = String(movementDescription.prefix(maxCharsPerLine)) + " (..)"
-        }
-        
-        // Date
-        let dateformatter = DateFormatter()
-        dateformatter.dateFormat = "yyyy-MM-dd"
-        let movementDate = dateformatter.string(from: movementsStore[indexPath.row].date)
-       
-        // Amount
-        // Format amount according to format XXXX,XX €
-         let currencyFormatter = NumberFormatter()
-        currencyFormatter.usesGroupingSeparator = true
-        currencyFormatter.numberStyle = .currency
-        //currencyFormatter.locale not Locale.current. Forced to Spain to show amount in format XXXX,XX €
-         currencyFormatter.locale = Locale(identifier: "es_ES")
-        let movementAmount = currencyFormatter.string(from: movementsStore[indexPath.row].amount as NSDecimalNumber) ?? ""
+            let cell = tableView.dequeueReusableCell(withIdentifier: "MovementCell") as! MovementCell
+            
+            // Description
+            let maxCharsPerLine = 30 // Maximum number of characters to prevent a line with incomplete text by length
+            var movementDescription = movementsStore[indexPath.row].movementDescription
+            if (movementDescription.count > maxCharsPerLine) {
+                movementDescription = String(movementDescription.prefix(maxCharsPerLine)) + " (..)"
+                }
+            
+            // Date
+            let dateformatter = DateFormatter()
+            dateformatter.dateFormat = "yyyy-MM-dd"
+            let movementDate = dateformatter.string(from: movementsStore[indexPath.row].date)
+           
+            // Amount
+            // Format amount according to format XXXX,XX €
+             let currencyFormatter = NumberFormatter()
+            currencyFormatter.usesGroupingSeparator = true
+            currencyFormatter.numberStyle = .currency
+            //currencyFormatter.locale not Locale.current. Forced to Spain to show amount in format XXXX,XX €
+             currencyFormatter.locale = Locale(identifier: "es_ES")
+            let movementAmount = currencyFormatter.string(from: movementsStore[indexPath.row].amount as NSDecimalNumber) ?? ""
 
-        // Assign calculated strings to cell controls
-        cell.movementDescription.text = movementDescription
-        cell.movementDate.text = movementDate
-        cell.movementAmount.text = movementAmount
-        // Format color of amount. Red if negative.
-        if movementAmount.contains("-") {
-            cell.movementAmount.textColor = UIColor.red }
-        else {
-            cell.movementAmount.textColor = UIColor.black }
-        
-        
+            // Assign calculated strings to cell controls
+            cell.movementDescription.text = movementDescription
+            cell.movementDate.text = movementDate
+            cell.movementAmount.text = movementAmount
+            // Format color of amount. Red if negative.
+            if movementAmount.contains("-") {
+                cell.movementAmount.textColor = UIColor.red }
+            else {
+                cell.movementAmount.textColor = UIColor.black }
+            
+            return cell
+            
+            }
+            
         // BEGIN-UOC-4
-        // If is the last row
-        if (indexPath.row == (movementsStore.count-1) ) {
+        // If It is the last row
+        else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "LastMovementCell") as!  LastMovementCell
-            cell.endOfMovements.text = "GGV"
+            return cell
         }
         // END-UOC-4
         
-       return cell
-    
     }
     // END-UOC-3
     
