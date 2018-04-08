@@ -29,8 +29,8 @@ class MovementsListViewController: UITableViewController {
     
     // BEGIN-UOC-3
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // Number of sections 2 : Movements + Footer "End of movements"
-        return 2
+        // Number of sections
+        return 1
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -43,7 +43,7 @@ class MovementsListViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MovementCell") as! MovementCell
         
         // Description
-        let maxCharsPerLine = 30
+        let maxCharsPerLine = 30 // Maximum number of characters to prevent a line with incomplete text by length
         var movementDescription = movementsStore[indexPath.row].movementDescription 
         if (movementDescription.count > maxCharsPerLine) {
             movementDescription = String(movementDescription.prefix(maxCharsPerLine)) + " (..)"
@@ -73,7 +73,16 @@ class MovementsListViewController: UITableViewController {
         else {
             cell.movementAmount.textColor = UIColor.black }
         
-        return cell
+        
+        // BEGIN-UOC-4
+        // If is the last row
+        if (indexPath.row == (movementsStore.count-1) ) {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "LastMovementCell") as!  LastMovementCell
+            cell.endOfMovements.text = "GGV"
+        }
+        // END-UOC-4
+        
+       return cell
     
     }
     // END-UOC-3
