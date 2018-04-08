@@ -20,10 +20,8 @@ class MovementsListViewController: UITableViewController {
         tableView.delegate = self
         tableView.dataSource = self
     
-        // Load list of movements
+        // Load list of movements in array movementsStore
         movementsStore = Services.getMovements()
-        
-        for i in 0...movementsStore.count-1 {print(movementsStore[i].movementDescription)} //****>>>> BORRAR <<<<****
 
         tableView.rowHeight = 75
     }
@@ -42,12 +40,11 @@ class MovementsListViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        
         let cell = tableView.dequeueReusableCell(withIdentifier: "MovementCell") as! MovementCell
         
         // Description
-        let maxCharsPerLine = 40
-        var movementDescription = movementsStore[indexPath.row].movementDescription
+        let maxCharsPerLine = 30
+        var movementDescription = movementsStore[indexPath.row].movementDescription 
         if (movementDescription.count > maxCharsPerLine) {
             movementDescription = String(movementDescription.prefix(maxCharsPerLine)) + " (..)"
         }
@@ -58,11 +55,23 @@ class MovementsListViewController: UITableViewController {
         let movementDate = dateformatter.string(from: movementsStore[indexPath.row].date)
        
         // Amount
-        let movementAmount = "1234" //String.init(format: "%.2d", movementsStore[indexPath.row].amount)
-        
+        // Format amount according to format XXXX,XX €
+         let currencyFormatter = NumberFormatter()
+        currencyFormatter.usesGroupingSeparator = true
+        currencyFormatter.numberStyle = .currency
+        //currencyFormatter.locale not Locale.current. Forced to Spain to show amount in format XXXX,XX €
+         currencyFormatter.locale = Locale(identifier: "es_ES")
+        let movementAmount = currencyFormatter.string(from: movementsStore[indexPath.row].amount as NSDecimalNumber) ?? ""
+
+        // Assign calculated strings to cell controls
         cell.movementDescription.text = movementDescription
-        cell.movementAmount.text = "1234"
         cell.movementDate.text = movementDate
+        cell.movementAmount.text = movementAmount
+        // Format color of amount. Red if negative.
+        if movementAmount.contains("-") {
+            cell.movementAmount.textColor = UIColor.red }
+        else {
+            cell.movementAmount.textColor = UIColor.black }
         
         return cell
     
