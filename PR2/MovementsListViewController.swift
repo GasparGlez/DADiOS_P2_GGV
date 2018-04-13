@@ -27,6 +27,7 @@ class MovementsListViewController: UITableViewController {
         movementsStoreLoaded = Services.getMovements()
         movementsStore = movementsStoreLoaded
         tableView.rowHeight = 75
+        //
     }
     // END-UOC-1
     
