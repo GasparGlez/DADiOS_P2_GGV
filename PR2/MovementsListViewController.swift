@@ -79,7 +79,7 @@ class MovementsListViewController: UITableViewController {
             }
             
         // BEGIN-UOC-4
-        // If it is the last row, add a "LastMovementCell" cell type
+        // If it is the last row, add a "LastMovementCell" cell type.
         else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "LastMovementCell") as!  LastMovementCell
             return cell
