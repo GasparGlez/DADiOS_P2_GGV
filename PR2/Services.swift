@@ -56,4 +56,16 @@ class Services {
             return Services.storedMovements ?? [Movement]()
         }
     }
+    
+    // GGV- BEGIN
+    // Function: FormatToStringDecimalToLocalCurrency
+    // Description: Format amount according a given format locale currency. If is not provided a locale settings, default locale = "es_ES"
+    static func FormatToStringDecimalToLocalCurrency(number: Decimal, locale: String?=nil) -> String {
+        let currencyFormatter = NumberFormatter()
+        currencyFormatter.usesGroupingSeparator = true
+        currencyFormatter.numberStyle = .currency
+        currencyFormatter.locale = Locale(identifier: locale ?? "es_ES")
+        return currencyFormatter.string(from: number as NSDecimalNumber) ?? ""
+    }
+    // GGV-END
 }

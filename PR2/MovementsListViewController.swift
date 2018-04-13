@@ -11,8 +11,11 @@ class MovementsListViewController: UITableViewController {
     
     // BEGIN-UOC-1
     
-    // movementsStore: Array of Movement to store list of movements
+    // movementsStore: Array of Movement to store list of movements. Loaded from getMovements() function
+    var movementsStoreLoaded = [Movement]()
+    // movementsStore: Array of Movement to store active/filtered list of movements
     var movementsStore = [Movement]()
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,8 +24,8 @@ class MovementsListViewController: UITableViewController {
         tableView.dataSource = self
     
         // Load list of movements in array movementsStore
-        movementsStore = Services.getMovements()
-
+        movementsStoreLoaded = Services.getMovements()
+        movementsStore = movementsStoreLoaded
         tableView.rowHeight = 75
     }
     // END-UOC-1
@@ -41,8 +44,7 @@ class MovementsListViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         // It is a movement row (not last row)
-        if (indexPath.row < (movementsStore.count-1) ) {
-        
+        if (indexPath.row < (movementsStore.count)) {
             let cell = tableView.dequeueReusableCell(withIdentifier: "MovementCell") as! MovementCell
             
             // Description
@@ -59,13 +61,9 @@ class MovementsListViewController: UITableViewController {
            
             // Amount
             // Format amount according to format XXXX,XX €
-             let currencyFormatter = NumberFormatter()
-            currencyFormatter.usesGroupingSeparator = true
-            currencyFormatter.numberStyle = .currency
-            //currencyFormatter.locale not Locale.current. Forced to Spain to show amount in format XXXX,XX €
-             currencyFormatter.locale = Locale(identifier: "es_ES")
-            let movementAmount = currencyFormatter.string(from: movementsStore[indexPath.row].amount as NSDecimalNumber) ?? ""
-
+            // Implemented Services.FormatToStringDecimalToLocalCurrency function
+            let movementAmount = Services.FormatToStringDecimalToLocalCurrency(number: movementsStore[indexPath.row].amount)
+            
             // Assign calculated strings to cell controls
             cell.movementDescription.text = movementDescription
             cell.movementDate.text = movementDate
@@ -81,7 +79,7 @@ class MovementsListViewController: UITableViewController {
             }
             
         // BEGIN-UOC-4
-        // If It is the last row
+        // If it is the last row, add a "LastMovementCell" cell type
         else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "LastMovementCell") as!  LastMovementCell
             return cell
@@ -92,6 +90,42 @@ class MovementsListViewController: UITableViewController {
     // END-UOC-3
     
     // BEGIN-UOC-5
+     @IBOutlet weak var segmentedFilter: UISegmentedControl!
+    
+    @IBAction func valueChangedSegmentedFilter(_ sender: Any) {
+        
+        movementsStore = returnFilteredMovementsArray(movementsArray: movementsStoreLoaded, selector: segmentedFilter.selectedSegmentIndex)
+        
+        // Reload data
+        tableView.reloadData()
+    }
+    
+    // Function: returnFilteredMovementsArray
+    // Description: Filters movements array based on the "selector" input parameter (UISegmentedControl value/index)
+    func returnFilteredMovementsArray (movementsArray: [Movement], selector: Int?=0) -> [Movement] {
+        
+        // Today date
+        let todayDateformatter = DateFormatter()
+        todayDateformatter.dateFormat = "yyyy-MM-dd"
+        let todayDate = todayDateformatter.string(from: Date())
+        
+        // Array with filter elements
+        var movementsFiltered = [Movement]()
+        
+        for i in 0..<(movementsArray.count-1) {
+            // movement date
+            let dateformatter = DateFormatter()
+            dateformatter.dateFormat = "yyyy-MM-dd"
+            let movementDate = dateformatter.string(from: movementsArray[i].date)
+            
+            // if selector==0 (all) or (selector==1 (today) and movementDate == todayDate)
+            if ((selector == 0) || (selector == 1 && movementDate == todayDate)) {
+                movementsFiltered.append(movementsArray[i])
+            }
+        }
+        return movementsFiltered
+    }
+    
     // END-UOC-5
     
     // BEGIN-UOC-6.1
@@ -99,7 +133,6 @@ class MovementsListViewController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         tableView.reloadData()
     }
 }

@@ -152,15 +152,15 @@
                                     <segue destination="qNi-wx-B3h" kind="show" identifier="SegueToMovementDetail" id="axa-vJ-SkQ"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="LastMovementCell" id="mRy-ap-RCE" customClass="LastMovementCell" customModule="PR2" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="LastMovementCell" id="mRy-ap-RCE" customClass="LastMovementCell" customModule="PR2" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="103" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="mRy-ap-RCE" id="ooj-Vw-oM7">
-                                    <rect key="frame" x="0.0" y="0.0" width="341" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="⇜ End of movements ⇝ " textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IPu-m3-7kY">
-                                            <rect key="frame" x="72" y="0.0" width="197" height="43.5"/>
+                                            <rect key="frame" x="89" y="0.0" width="197" height="43.5"/>
                                             <fontDescription key="fontDescription" name="ArialUnicodeMS" family="Arial Unicode MS" pointSize="18"/>
                                             <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
@@ -191,8 +191,14 @@
                                 <segment title="All"/>
                                 <segment title="Today"/>
                             </segments>
+                            <connections>
+                                <action selector="valueChangedSegmentedFilter:" destination="AOg-kE-laP" eventType="valueChanged" id="KbI-h7-KIU"/>
+                            </connections>
                         </segmentedControl>
                     </navigationItem>
+                    <connections>
+                        <outlet property="segmentedFilter" destination="OsD-Dz-Lj1" id="BBu-BM-L0v"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PdI-ln-Mnk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
