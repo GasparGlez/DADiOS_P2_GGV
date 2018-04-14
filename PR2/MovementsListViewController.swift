@@ -38,8 +38,8 @@ class MovementsListViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // Return the number of rows
-        return movementsStore.count
+        // Return the number of rows + 1 (last "End of movements" row)
+        return movementsStore.count + 1
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -59,7 +59,7 @@ class MovementsListViewController: UITableViewController {
             let dateformatter = DateFormatter()
             dateformatter.dateFormat = "yyyy-MM-dd"
             let movementDate = dateformatter.string(from: movementsStore[indexPath.row].date)
-           
+            
             // Amount
             // Format amount according to format XXXX,XX €
             // Implemented Services.FormatToStringDecimalToLocalCurrency function
@@ -74,11 +74,8 @@ class MovementsListViewController: UITableViewController {
                 cell.movementAmount.textColor = UIColor.red }
             else {
                 cell.movementAmount.textColor = UIColor.black }
-            
             return cell
-            
-            }
-            
+        }
         // BEGIN-UOC-4
         // If it is the last row, add a "LastMovementCell" cell type.
         else {
@@ -86,12 +83,12 @@ class MovementsListViewController: UITableViewController {
             return cell
         }
         // END-UOC-4
-        
     }
     // END-UOC-3
     
     // BEGIN-UOC-5
-     @IBOutlet weak var segmentedFilter: UISegmentedControl!
+    // segmentedFilter outlet
+    @IBOutlet weak var segmentedFilter: UISegmentedControl!
     
     @IBAction func valueChangedSegmentedFilter(_ sender: Any) {
         
@@ -135,8 +132,9 @@ class MovementsListViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // If get the destination controller, cast it to detail class
         if let destinationController  = segue.destination as? MovementDetailViewController {
-            // Set movement variable in MovementDetailViewController with selected cell values
+            // Set movement variable and index in MovementDetailViewController with selected cell values
             destinationController.movement = movementsStore[(tableView.indexPathForSelectedRow?.row)!]
+            destinationController.movementIndex = (tableView.indexPathForSelectedRow?.row)!
         }
     }
     

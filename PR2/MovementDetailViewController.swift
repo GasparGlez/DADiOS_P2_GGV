@@ -8,11 +8,11 @@
 import UIKit
 
 class MovementDetailViewController: UIViewController {
-
     
     // BEGIN-UOC-6.1
     
     var movement: Movement!
+    var movementIndex: Int!
     
     // Label outlets for each movement detail
     @IBOutlet weak var amountLabel: UILabel!
@@ -51,15 +51,34 @@ class MovementDetailViewController: UIViewController {
             balanceLabel.textColor = UIColor.red }
         else {
             balanceLabel.textColor = UIColor.black }
+        
+        // If movement is rejected show label and hide button
+        if movement.rejected {
+            rejectedLabel.isHidden = false
+            rejectButton.isHidden = true
+        }
     }
     
     // END-UOC-6.1
     
     // BEGIN-UOC-7
-    func rejectAction(sender: UIButton!) {        
+    // Outlet for "Rejected" label
+    @IBOutlet weak var rejectedLabel: UILabel!
+    @IBOutlet weak var rejectButton: UIButton!
+    
+    @IBAction func rejectAction(_ sender: UIButton!) {        
+        /*
+            let parentVC = storyboard?.instantiateViewController(withIdentifier: "MovementListViewController") as! MovementsListViewController
+            parentVC.movementsStore[movementIndex].rejected = true
+        */
         if let navigationController = self.navigationController {
             navigationController.popViewController(animated: true)
+            
+            
         }
+
+        movement.rejected=true
+        rejectedLabel.isHidden = false
     }
     // END-UOC-7    
 }
