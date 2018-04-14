@@ -129,8 +129,18 @@ class MovementsListViewController: UITableViewController {
     
     // END-UOC-5
     
-    // BEGIN-UOC-6.1
-    // END-UOC-6.1
+    // BEGIN-UOC-6.2
+    
+    // Function to "prepare" segue to MovementDetailViewController from selected cell
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // If get the destination controller, cast it to detail class
+        if let destinationController  = segue.destination as? MovementDetailViewController {
+            // Set movement variable in MovementDetailViewController with selected cell values
+            destinationController.movement = movementsStore[(tableView.indexPathForSelectedRow?.row)!]
+        }
+    }
+    
+    // END-UOC-6.2
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)

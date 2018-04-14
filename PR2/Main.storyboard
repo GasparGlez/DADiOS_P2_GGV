@@ -628,12 +628,18 @@
                                     </label>
                                 </subviews>
                             </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C7J-48-cEg">
+                                <rect key="frame" x="161.5" y="328" width="51" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <state key="normal" title="Reject"/>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="xml-tP-CyE" firstAttribute="leading" secondItem="aVH-jz-e2c" secondAttribute="leading" id="IiG-Iu-SbK"/>
                             <constraint firstItem="omY-ry-gA4" firstAttribute="leading" secondItem="aVH-jz-e2c" secondAttribute="leading" id="JYJ-kU-KJF"/>
                             <constraint firstItem="EmV-fd-YqX" firstAttribute="trailing" secondItem="aVH-jz-e2c" secondAttribute="trailingMargin" id="Jgz-ER-2VV"/>
+                            <constraint firstItem="C7J-48-cEg" firstAttribute="top" secondItem="omY-ry-gA4" secondAttribute="bottom" constant="15" id="ORf-ee-cDk"/>
                             <constraint firstItem="omY-ry-gA4" firstAttribute="top" secondItem="xml-tP-CyE" secondAttribute="bottom" constant="20" id="ObY-vV-Svl"/>
                             <constraint firstItem="xml-tP-CyE" firstAttribute="top" secondItem="lAR-7g-P12" secondAttribute="bottom" constant="20" id="Wg5-Aq-ZIj"/>
                             <constraint firstItem="tIW-iy-cW6" firstAttribute="top" secondItem="MZC-cl-5ig" secondAttribute="bottom" constant="10" id="bcc-va-TPC"/>
@@ -643,11 +649,19 @@
                             <constraint firstItem="lAR-7g-P12" firstAttribute="top" secondItem="EmV-fd-YqX" secondAttribute="bottom" constant="30" id="kh6-P9-euF"/>
                             <constraint firstItem="tIW-iy-cW6" firstAttribute="leading" secondItem="aVH-jz-e2c" secondAttribute="leadingMargin" id="oBP-gD-mg1"/>
                             <constraint firstAttribute="trailing" secondItem="omY-ry-gA4" secondAttribute="trailing" id="pTu-zM-6gx"/>
+                            <constraint firstItem="C7J-48-cEg" firstAttribute="centerX" secondItem="aVH-jz-e2c" secondAttribute="centerX" id="pbP-68-JNS"/>
                             <constraint firstItem="lAR-7g-P12" firstAttribute="leading" secondItem="aVH-jz-e2c" secondAttribute="leading" id="pqU-96-jTv"/>
                             <constraint firstAttribute="trailing" secondItem="lAR-7g-P12" secondAttribute="trailing" id="xbJ-PN-xOK"/>
                             <constraint firstItem="EmV-fd-YqX" firstAttribute="top" secondItem="tIW-iy-cW6" secondAttribute="bottom" constant="20" id="z19-ey-gOL"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="amountLabel" destination="tIW-iy-cW6" id="Rnw-Mr-ej7"/>
+                        <outlet property="balanceLabel" destination="mfT-5d-M3H" id="FWZ-sx-Tgh"/>
+                        <outlet property="dateLabel" destination="Mud-8P-m4l" id="un5-bh-iht"/>
+                        <outlet property="descriptionLabel" destination="EmV-fd-YqX" id="6J6-40-h8h"/>
+                        <outlet property="valueDateLabel" destination="R9R-z6-qMm" id="WsE-ny-JFZ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Mzx-hl-rQ2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
