@@ -637,7 +637,7 @@
                                 </connections>
                             </button>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rejected" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fZG-zV-Jug">
-                                <rect key="frame" x="154" y="413" width="67.5" height="20.5"/>
+                                <rect key="frame" x="154" y="333" width="67.5" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -648,7 +648,7 @@
                             <constraint firstItem="xml-tP-CyE" firstAttribute="leading" secondItem="aVH-jz-e2c" secondAttribute="leading" id="IiG-Iu-SbK"/>
                             <constraint firstItem="omY-ry-gA4" firstAttribute="leading" secondItem="aVH-jz-e2c" secondAttribute="leading" id="JYJ-kU-KJF"/>
                             <constraint firstItem="EmV-fd-YqX" firstAttribute="trailing" secondItem="aVH-jz-e2c" secondAttribute="trailingMargin" id="Jgz-ER-2VV"/>
-                            <constraint firstItem="fZG-zV-Jug" firstAttribute="top" secondItem="omY-ry-gA4" secondAttribute="bottom" constant="100" id="KYQ-8D-SzA"/>
+                            <constraint firstItem="fZG-zV-Jug" firstAttribute="top" secondItem="omY-ry-gA4" secondAttribute="bottom" constant="20" id="KYQ-8D-SzA"/>
                             <constraint firstItem="fZG-zV-Jug" firstAttribute="centerX" secondItem="aVH-jz-e2c" secondAttribute="centerX" id="Ne9-XP-5Ku"/>
                             <constraint firstItem="C7J-48-cEg" firstAttribute="top" secondItem="omY-ry-gA4" secondAttribute="bottom" constant="15" id="ORf-ee-cDk"/>
                             <constraint firstItem="omY-ry-gA4" firstAttribute="top" secondItem="xml-tP-CyE" secondAttribute="bottom" constant="20" id="ObY-vV-Svl"/>

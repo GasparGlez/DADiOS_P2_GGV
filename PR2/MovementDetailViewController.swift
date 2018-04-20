@@ -11,8 +11,8 @@ class MovementDetailViewController: UIViewController {
     
     // BEGIN-UOC-6.1
     
+    // movement variable to manage the detail movement
     var movement: Movement!
-    var movementIndex: Int!
     
     // Label outlets for each movement detail
     @IBOutlet weak var amountLabel: UILabel!
@@ -26,9 +26,9 @@ class MovementDetailViewController: UIViewController {
         super.viewDidLoad()
         
         // Amount formatted
-        let amount = Services.FormatToStringDecimalToLocalCurrency(number: movement.amount)
+        let amount = Services.FormatDecimalToLocalCurrencyString(number: movement.amount)
         amountLabel.text = amount
-        // Format color of amount. Red if negative.
+        // Format amount color. Red if negative.
         if amount.contains("-") {
             amountLabel.textColor = UIColor.red }
         else {
@@ -38,13 +38,11 @@ class MovementDetailViewController: UIViewController {
         descriptionLabel.text = movement.movementDescription
         
         // Dates
-        let dateformatter = DateFormatter()
-        dateformatter.dateFormat = "yyyy-MM-dd"
-        dateLabel.text = dateformatter.string(from: movement.date)
-        valueDateLabel.text = dateformatter.string(from: movement.valueDate)
+        dateLabel.text = Services.FormatDateToYYYY_MM_DD(date:  movement.date)
+        valueDateLabel.text = Services.FormatDateToYYYY_MM_DD(date: movement.valueDate)
         
         // Amount formatted
-        let balance = Services.FormatToStringDecimalToLocalCurrency(number: movement.balance)
+        let balance = Services.FormatDecimalToLocalCurrencyString(number: movement.balance)
         balanceLabel.text = balance
         // Format color of balance. Red if negative.
         if balance.contains("-") {
@@ -52,8 +50,9 @@ class MovementDetailViewController: UIViewController {
         else {
             balanceLabel.textColor = UIColor.black }
         
-        // If movement is rejected show label and hide button
+        // If movement was rejected, show label and hide button
         if movement.rejected {
+            rejectedLabel.textColor = UIColor.red
             rejectedLabel.isHidden = false
             rejectButton.isHidden = true
         }
@@ -67,18 +66,16 @@ class MovementDetailViewController: UIViewController {
     @IBOutlet weak var rejectButton: UIButton!
     
     @IBAction func rejectAction(_ sender: UIButton!) {        
-        /*
-            let parentVC = storyboard?.instantiateViewController(withIdentifier: "MovementListViewController") as! MovementsListViewController
-            parentVC.movementsStore[movementIndex].rejected = true
-        */
+
         if let navigationController = self.navigationController {
             navigationController.popViewController(animated: true)
-            
-            
         }
-
-        movement.rejected=true
+        // Movement rejection
+        movement.rejected = true
+        
+        // Rejected label visible. Reject button hidden.
         rejectedLabel.isHidden = false
+        rejectButton.isHidden = true
     }
     // END-UOC-7    
 }
