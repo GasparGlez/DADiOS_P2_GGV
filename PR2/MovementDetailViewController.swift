@@ -25,8 +25,9 @@ class MovementDetailViewController: UIViewController {
         
         super.viewDidLoad()
         
-        // Amount formatted
-        let amount = Services.FormatDecimalToLocalCurrencyString(number: movement.amount)
+        // Amount according to format XXXX,XX €
+        // Implemented Utils.FormatToStringDecimalToLocalCurrency function
+        let amount = Utils.FormatDecimalToLocalCurrencyString(number: movement.amount)
         amountLabel.text = amount
         // Format amount color. Red if negative.
         if amount.contains("-") {
@@ -38,11 +39,12 @@ class MovementDetailViewController: UIViewController {
         descriptionLabel.text = movement.movementDescription
         
         // Dates
-        dateLabel.text = Services.FormatDateToYYYY_MM_DD(date:  movement.date)
-        valueDateLabel.text = Services.FormatDateToYYYY_MM_DD(date: movement.valueDate)
+        dateLabel.text = Utils.FormatDateToYYYY_MM_DD(date:  movement.date)
+        valueDateLabel.text = Utils.FormatDateToYYYY_MM_DD(date: movement.valueDate)
         
-        // Amount formatted
-        let balance = Services.FormatDecimalToLocalCurrencyString(number: movement.balance)
+        // Balance according to format XXXX,XX €
+        // Implemented Utils.FormatToStringDecimalToLocalCurrency function
+        let balance = Utils.FormatDecimalToLocalCurrencyString(number: movement.balance)
         balanceLabel.text = balance
         // Format color of balance. Red if negative.
         if balance.contains("-") {

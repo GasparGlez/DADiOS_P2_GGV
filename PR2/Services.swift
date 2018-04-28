@@ -56,24 +56,4 @@ class Services {
             return Services.storedMovements ?? [Movement]()
         }
     }
-    
-    // GGV- BEGIN
-    // Function: FormatDecimalToLocalCurrencyString
-    // Description: Format amount according a given format locale currency. If is not provided a locale settings, default locale = "es_ES"
-    static func FormatDecimalToLocalCurrencyString(number: Decimal, locale: String?=nil) -> String {
-        let currencyFormatter = NumberFormatter()
-        currencyFormatter.usesGroupingSeparator = true
-        currencyFormatter.numberStyle = .currency
-        currencyFormatter.locale = Locale(identifier: locale ?? "es_ES")
-        return currencyFormatter.string(from: number as NSDecimalNumber) ?? ""
-    }
-    // Function: FormatDateToYYYY_MM_DD
-    // Description: Format date to a "yyyy-MM-dd" string
-    static func FormatDateToYYYY_MM_DD(date: Date) -> String {
-        let dateformatter = DateFormatter()
-        dateformatter.dateFormat = "yyyy-MM-dd"
-        let formattedDate = dateformatter.string(from: date)
-        return formattedDate
-    }
-    // GGV-END
 }

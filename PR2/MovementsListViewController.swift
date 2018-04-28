@@ -15,7 +15,7 @@ class MovementsListViewController: UITableViewController {
     var movementsStore = [Movement]()
     
     // Today string (formatted date)
-    let todayDate = Services.FormatDateToYYYY_MM_DD(date: Date())
+    let todayDate = Utils.FormatDateToYYYY_MM_DD(date: Date())
     
     // Selector : 0: All movements (default) / 1: Today movements (filtered)
     var selector = 0
@@ -31,13 +31,13 @@ class MovementsListViewController: UITableViewController {
         
         // Table row height
         tableView.rowHeight = 75
-        //
+        
     }
     // END-UOC-1
     
     // BEGIN-UOC-3
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // Number of sections
+        // Number of sections: 1
         return 1
     }
     
@@ -51,7 +51,7 @@ class MovementsListViewController: UITableViewController {
         else {
             numOfRows = 0
             for i in 0..<(movementsStore.count-1) {
-                if (Services.FormatDateToYYYY_MM_DD(date: movementsStore[i].date) == todayDate) {
+                if (Utils.FormatDateToYYYY_MM_DD(date: movementsStore[i].date) == todayDate) {
                     numOfRows+=1
                     }
                 }
@@ -64,7 +64,7 @@ class MovementsListViewController: UITableViewController {
         // It is a movement row (not last row)
         if (indexPath.row < (movementsStore.count) &&
             ( // Selection of rows: selector=0 (all elements) OR selector=1 and movementsStore[indexPath.row].date=todayDate)
-                (selector == 0) || (selector == 1 && Services.FormatDateToYYYY_MM_DD(date: movementsStore[indexPath.row].date) == todayDate)
+                (selector == 0) || (selector == 1 && Utils.FormatDateToYYYY_MM_DD(date: movementsStore[indexPath.row].date) == todayDate)
                 )
             ) {
             let cell = tableView.dequeueReusableCell(withIdentifier: "MovementCell") as! MovementCell
@@ -77,12 +77,11 @@ class MovementsListViewController: UITableViewController {
                 }
             
             // Date
-            let movementDate = Services.FormatDateToYYYY_MM_DD(date: movementsStore[indexPath.row].date)
+            let movementDate = Utils.FormatDateToYYYY_MM_DD(date: movementsStore[indexPath.row].date)
             
-            // Amount
-            // Format amount according to format XXXX,XX €
+            // Amount according to format XXXX,XX €
             // Implemented Services.FormatToStringDecimalToLocalCurrency function
-            let movementAmount = Services.FormatDecimalToLocalCurrencyString(number: movementsStore[indexPath.row].amount)
+            let movementAmount = Utils.FormatDecimalToLocalCurrencyString(number: movementsStore[indexPath.row].amount)
             
             // Assign calculated strings to cell controls
             cell.movementDescription.text = movementDescription
