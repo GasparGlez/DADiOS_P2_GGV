@@ -10,7 +10,6 @@ import UIKit
 class MovementsListViewController: UITableViewController {
     
     // BEGIN-UOC-1
-    
     // movementsStore: Array of Movement to store list of movements. Loaded from getMovements() function
     var movementsStore = [Movement]()
     
@@ -111,7 +110,6 @@ class MovementsListViewController: UITableViewController {
             return cell
         }
         // END-UOC-4
-        
     }
     // END-UOC-3
     
@@ -127,20 +125,20 @@ class MovementsListViewController: UITableViewController {
         // Reload data
         tableView.reloadData()
     }
-    
     // END-UOC-5
     
     // BEGIN-UOC-6.2
-    
     // Function to "prepare" segue to MovementDetailViewController from selected cell
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // If get the destination controller, cast it to detail class
         if let destinationController  = segue.destination as? MovementDetailViewController {
             // Set movement variable in MovementDetailViewController with selected cell value
-            destinationController.movement = movementsStore[(tableView.indexPathForSelectedRow?.row)!]
+            let row = tableView.indexPathForSelectedRow?.row ?? -1
+            if row > -1 {
+                destinationController.movement = movementsStore[row]
+            }
         }
     }
-
     // END-UOC-6.2
     
     override func viewWillAppear(_ animated: Bool) {

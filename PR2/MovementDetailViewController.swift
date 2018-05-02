@@ -10,7 +10,6 @@ import UIKit
 class MovementDetailViewController: UIViewController {
     
     // BEGIN-UOC-6.1
-    
     // movement variable to manage the detail movement
     var movement: Movement!
     
@@ -59,7 +58,6 @@ class MovementDetailViewController: UIViewController {
             rejectButton.isHidden = true
         }
     }
-    
     // END-UOC-6.1
     
     // BEGIN-UOC-7
