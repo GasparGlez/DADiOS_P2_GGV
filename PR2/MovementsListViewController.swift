@@ -62,7 +62,7 @@ class MovementsListViewController: UITableViewController {
 
         // It is a movement row (not last row)
         if (indexPath.row < (movementsStore.count) &&
-            ( // Selection of rows: selector=0 (all elements) OR selector=1 and movementsStore[indexPath.row].date=todayDate)
+            ( // Selection of rows: selector=0 (all elements) OR (selector=1 and movementsStore[indexPath.row].date=todayDate)
                 (selector == 0) || (selector == 1 && Utils.FormatDateToYYYY_MM_DD(date: movementsStore[indexPath.row].date) == todayDate)
                 )
             ) {
